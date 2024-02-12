@@ -9,9 +9,7 @@ function check-deps {
     elif ee >/dev/null 2>&1; then
         log 'Found "ee" (echo-eval) in the environment.'
     else
-        log '\e[1;31mFATAL: Missing dependency "ee" (echo-eval)!\e[0m'
-        log 'See documentation: https://github.com/kj4ezj/jellyfin-tv-guide'
-        exit 127
+        fail 'FATAL: Missing dependency "ee" (echo-eval)!' 127
     fi
 }
 
