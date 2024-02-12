@@ -1,10 +1,10 @@
-BIN ?= dl-tv-guide
+BIN ?= dl-guide
 PREFIX ?= /usr/local
 VERSION = $(shell git describe --tags --exact-match 2>/dev/null || git rev-parse HEAD)
 
 install:
 	@echo 'Installing jellyfin-tv-guide.'
-	cat './dl-tv-guide.sh' | sed 's_kj4ezj/jellyfin-tv-guide_kj4ezj/jellyfin-tv-guide/tree/$(VERSION)_' > '$(PREFIX)/bin/$(BIN)'
+	cat './dl-guide.sh' | sed 's_kj4ezj/jellyfin-tv-guide_kj4ezj/jellyfin-tv-guide/tree/$(VERSION)_' > '$(PREFIX)/bin/$(BIN)'
 	chmod +x '$(PREFIX)/bin/$(BIN)'
 	@echo 'Done installing jellyfin-tv-guide as "$(PREFIX)/bin/$(BIN)".'
 

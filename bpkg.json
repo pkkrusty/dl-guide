@@ -8,7 +8,7 @@
   "install": "make install",
   "uninstall" : "make uninstall",
   "scripts": [
-    "dl-tv-guide.sh"
+    "dl-guide.sh"
   ],
   "dependencies": {
     "kj4ezj/ee": "main"
