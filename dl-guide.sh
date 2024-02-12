@@ -1,5 +1,6 @@
 #!/bin/bash
 set -eo pipefail
+export JELLYFIN_METADATA_DIR_DEFAULT='/var/lib/jellyfin/metadata'
 
 # check for dependencies
 function check-deps {
@@ -39,6 +40,20 @@ function fail {
     exit "${2:-1}"
 }
 
+# look for Jellyfin metadata path
+function find-jellyfin-metadata-dir {
+    if [[ -n "$JELLYFIN_METADATA_DIR" && -d "$JELLYFIN_METADATA_DIR" ]]; then
+        log "Found user-defined JELLYFIN_METADATA_DIR at \"$JELLYFIN_METADATA_DIR\"."
+    elif [[ -n "$JELLYFIN_METADATA_DIR" ]]; then
+        fail 'ERROR: User-defined JELLYFIN_METADATA_DIR does not exist!' 4
+    elif [[ -d "$JELLYFIN_METADATA_DIR_DEFAULT" ]]; then
+        log "Found Jellyfin metadata directory at \"$JELLYFIN_METADATA_DIR_DEFAULT\"."
+        export JELLYFIN_METADATA_DIR="$JELLYFIN_METADATA_DIR_DEFAULT"
+    else
+        fail 'ERROR: JELLYFIN_METADATA_DIR not found!' 5
+    fi
+}
+
 # prepend timestamp and script name to log lines
 function log {
     printf "\e[0;30m%s ${0##*/} -\e[0m $*\n" "$(date '+%F %T %Z')"
@@ -48,6 +63,7 @@ log 'Begin.'
 check-deps
 check-username
 check-password
+find-jellyfin-metadata-dir
 export ZAP2XML_CMD="/zap2xml.pl -u '$ZAP2IT_USERNAME' -p '$ZAP2IT_PASSWORD' -U -o /data/tv-guide.xml"
 
 ee "docker run -v '$JELLYFIN_METADATA_DIR/guide:/data' shuaiscott/zap2xml /bin/sh -c \"$ZAP2XML_CMD\""
