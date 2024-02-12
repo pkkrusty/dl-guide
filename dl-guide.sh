@@ -15,6 +15,14 @@ function check-deps {
     fi
 }
 
+# fail with a useful error
+function fail {
+    log "\e[1;31m$1\e[0m"
+    log 'Documentation: https://github.com/kj4ezj/jellyfin-tv-guide'
+    log 'Exiting...'
+    exit "${2:-1}"
+}
+
 # prepend timestamp and script name to log lines
 function log {
     printf "\e[0;30m%s ${0##*/} -\e[0m $*\n" "$(date '+%F %T %Z')"
