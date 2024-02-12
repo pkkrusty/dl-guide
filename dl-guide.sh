@@ -13,6 +13,15 @@ function check-deps {
     fi
 }
 
+# check for zap2it password
+function check-password {
+    if [[ -n "$ZAP2IT_PASSWORD" ]]; then
+        log "Found zap2it password with $(printf '%s' "$ZAP2IT_PASSWORD" | wc -c) characters."
+    else
+        fail 'ERROR: No zap2it password found!' 3
+    fi
+}
+
 # check for zap2it username
 function check-username {
     if [[ -n "$ZAP2IT_USERNAME" ]]; then
@@ -38,6 +47,7 @@ function log {
 log 'Begin.'
 check-deps
 check-username
+check-password
 export ZAP2XML_CMD="/zap2xml.pl -u '$ZAP2IT_USERNAME' -p '$ZAP2IT_PASSWORD' -U -o /data/tv-guide.xml"
 
 ee "docker run -v '$JELLYFIN_METADATA_DIR/guide:/data' shuaiscott/zap2xml /bin/sh -c \"$ZAP2XML_CMD\""
