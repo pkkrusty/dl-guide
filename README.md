@@ -3,6 +3,7 @@ Download TV guide metadata for Jellyfin using a cron job.
 
 ### Index
 1. [Development](#development)
+    1. [Lint](#lint)
 1. [See Also](#see-also)
 
 ## Development
@@ -11,6 +12,13 @@ Contributors need these tools installed.
     - git
     - make
 - [git](https://git-scm.com)
+
+### Lint
+This project uses [bashate](https://github.com/openstack/bashate) _and_ [shellcheck](https://github.com/koalaman/shellcheck) for linting.
+```bash
+bpkg run lint
+```
+This invokes `lint.sh` which contains the specific configuration for each permutation of linter and target file.
 
 ## See Also
 - Jellyfin
