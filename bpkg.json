@@ -7,6 +7,9 @@
   "license": "MIT",
   "install": "make install",
   "uninstall" : "make uninstall",
+  "scripts": [
+    "dl-tv-guide.sh"
+  ],
   "dependencies": {
     "kj4ezj/ee": "main"
   }
