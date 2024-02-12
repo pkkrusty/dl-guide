@@ -5,6 +5,8 @@
   "homepage": "https://github.com/kj4ezj/jellyfin-tv-guide",
   "author": "Zach Butler <kj4ezj+jellyfin-tv-guide@pm.me>",
   "license": "MIT",
+  "install": "make install",
+  "uninstall" : "make uninstall",
   "dependencies": {
     "kj4ezj/ee": "main"
   }
