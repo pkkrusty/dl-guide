@@ -3,7 +3,7 @@ set -eo pipefail
 
 # prepend timestamp and script name to log lines
 function log {
-    printf "%s ${0##*/} - $*\n" "$(date '+%F %T %Z')"
+    printf "\e[0;30m%s ${0##*/} -\e[0m $*\n" "$(date '+%F %T %Z')"
 }
 
 log 'Begin.'
