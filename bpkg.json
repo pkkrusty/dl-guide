@@ -1,0 +1,11 @@
+{
+  "name": "jellyfin-tv-guide",
+  "version": "0.0.1",
+  "description": "Download TV guide metadata for Jellyfin using a cron job.",
+  "homepage": "https://github.com/kj4ezj/jellyfin-tv-guide",
+  "author": "Zach Butler <kj4ezj+jellyfin-tv-guide@pm.me>",
+  "license": "MIT",
+  "dependencies": {
+    "kj4ezj/ee": "main"
+  }
+}
