@@ -2,7 +2,15 @@
 Download TV guide metadata for Jellyfin using a cron job.
 
 ### Index
+1. [Development](#development)
 1. [See Also](#see-also)
+
+## Development
+Contributors need these tools installed.
+- [bpkg](https://github.com/bpkg/bpkg)
+    - git
+    - make
+- [git](https://git-scm.com)
 
 ## See Also
 - Jellyfin
