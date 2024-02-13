@@ -93,6 +93,23 @@ function log {
     printf "\e[0;30m%s ${0##*/} -\e[0m $*\n" "$(date '+%F %T %Z')"
 }
 
+# print the timestamp the guide was last downloaded
+function log-last-run-time {
+    if [[ ! -f "$1" ]]; then
+        log 'Last Guide Download: Never'
+    else
+        CURRENT_UNIX_TIME="$(date '+%s')"
+        LAST_MOD_UNIX_TIME="$(stat -c '%Y' "$1")"
+        HOURS_SINCE="$(( ($CURRENT_UNIX_TIME - $LAST_MOD_UNIX_TIME) / 3600 ))"
+        if (( $HOURS_SINCE > 48 )); then
+            TIME_SINCE_STR="$(( $HOURS_SINCE / 24 )) days ago"
+        else
+            TIME_SINCE_STR="$HOURS_SINCE hours ago"
+        fi
+        log "Last Guide Download: $(date -d "@$LAST_MOD_UNIX_TIME" '+%F %T %Z') ($TIME_SINCE_STR)"
+    fi
+}
+
 # print script version and other info
 function log-version-and-exit {
     echo "kj4ezj/jellyfin-tv-guide:$GIT_VERSION on $GIT_BRANCH"
@@ -121,6 +138,7 @@ check-password
 find-jellyfin-metadata-dir
 find-jellyfin-user
 # download guide data
+log-last-run-time "$JELLYFIN_METADATA_DIR/guide/tv-guide.xml"
 export ZAP2XML_CMD="/zap2xml.pl -u '$ZAP2IT_USERNAME' -p '$ZAP2IT_PASSWORD' -U -o /data/tv-guide.xml"
 ee "docker run -v '$JELLYFIN_METADATA_DIR/guide:/data' shuaiscott/zap2xml /bin/sh -c \"$ZAP2XML_CMD\""
 # fix permissions
