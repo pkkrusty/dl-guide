@@ -79,6 +79,7 @@ find-jellyfin-user
 export ZAP2XML_CMD="/zap2xml.pl -u '$ZAP2IT_USERNAME' -p '$ZAP2IT_PASSWORD' -U -o /data/tv-guide.xml"
 
 ee "docker run -v '$JELLYFIN_METADATA_DIR/guide:/data' shuaiscott/zap2xml /bin/sh -c \"$ZAP2XML_CMD\""
+ee "chown '$JELLYFIN_USER:$JELLYFIN_USER' '$JELLYFIN_METADATA_DIR/guide/tv-guide.xml'"
 
 log 'Done.'
 # Copyright © 2024 Zach Butler - https://github.com/kj4ezj/jellyfin-tv-guide
