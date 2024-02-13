@@ -140,8 +140,8 @@ function log-version-and-exit {
 # main
 git-metadata
 # parse args
-for RAW_ARG in "$@"; do
-    ARG="$(echo "$RAW_ARG" | tr -d '-')"
+for (( i=1; i <= $#; i++)); do
+    ARG="$(echo "${!i}" | tr -d '-')"
     if [[ "$ARG" == 'h' || "$ARG" == 'help' || "$ARG" == '?' ]]; then
         log-help-and-exit
     elif [[ "$ARG" == 'v' || "$ARG" == 'version' ]]; then
