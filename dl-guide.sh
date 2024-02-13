@@ -70,15 +70,18 @@ function log {
     printf "\e[0;30m%s ${0##*/} -\e[0m $*\n" "$(date '+%F %T %Z')"
 }
 
+# main
 log 'Begin.'
+# check prerequisites
 check-deps
 check-username
 check-password
 find-jellyfin-metadata-dir
 find-jellyfin-user
+# download guide data
 export ZAP2XML_CMD="/zap2xml.pl -u '$ZAP2IT_USERNAME' -p '$ZAP2IT_PASSWORD' -U -o /data/tv-guide.xml"
-
 ee "docker run -v '$JELLYFIN_METADATA_DIR/guide:/data' shuaiscott/zap2xml /bin/sh -c \"$ZAP2XML_CMD\""
+# fix permissions
 ee "chmod -x '$JELLYFIN_METADATA_DIR/guide/tv-guide.xml'"
 ee "chown '$JELLYFIN_USER:$JELLYFIN_USER' '$JELLYFIN_METADATA_DIR/guide/tv-guide.xml'"
 
