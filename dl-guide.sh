@@ -99,6 +99,16 @@ function log {
     printf "\e[0;30m%s ${0##*/} -\e[0m $*\n" "$(date '+%F %T %Z')"
 }
 
+# print help and exit
+function log-help-and-exit {
+    echo 'Help option not implemented yet, please see online documentation here:'
+    README_URI="$(git-uri | tr -d '\n\r')"
+    echo "$README_URI/README.md"
+    echo
+    echo 'VERSION INFO:'
+    log-version-and-exit
+}
+
 # print the timestamp the guide was last downloaded
 function log-last-run-time {
     if [[ ! -f "$1" ]]; then
@@ -132,7 +142,9 @@ git-metadata
 # parse args
 for RAW_ARG in "$@"; do
     ARG="$(echo "$RAW_ARG" | tr -d '-')"
-    if [[ "$ARG" == 'v' || "$ARG" == 'version' ]]; then
+    if [[ "$ARG" == 'h' || "$ARG" == 'help' || "$ARG" == '?' ]]; then
+        log-help-and-exit
+    elif [[ "$ARG" == 'v' || "$ARG" == 'version' ]]; then
         log-version-and-exit
     fi
 done
