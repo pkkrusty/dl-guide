@@ -16,6 +16,7 @@
 # build artifacts
 **/build
 **/cache
+.github/artifacts
 
 # data files
 *.csv
