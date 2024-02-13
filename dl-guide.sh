@@ -106,9 +106,9 @@ function log-last-run-time {
     else
         CURRENT_UNIX_TIME="$(date '+%s')"
         LAST_MOD_UNIX_TIME="$(stat -c '%Y' "$1")"
-        HOURS_SINCE="$(( ($CURRENT_UNIX_TIME - $LAST_MOD_UNIX_TIME) / 3600 ))"
-        if (( $HOURS_SINCE > 48 )); then
-            TIME_SINCE_STR="$(( $HOURS_SINCE / 24 )) days ago"
+        HOURS_SINCE="$(( (CURRENT_UNIX_TIME - LAST_MOD_UNIX_TIME) / 3600 ))"
+        if (( HOURS_SINCE > 48 )); then
+            TIME_SINCE_STR="$(( HOURS_SINCE / 24 )) days ago"
         else
             TIME_SINCE_STR="$HOURS_SINCE hours ago"
         fi
