@@ -60,10 +60,16 @@ function find-jellyfin-metadata-dir {
 # look for Jellyfin user account
 function find-jellyfin-user {
     if [[ -n "$JELLYFIN_USER" ]]; then
-        log "Found user-defined JELLYFIN_USER, \"$JELLYFIN_USER\"."
-    else
-        log "Assuming \"$JELLYFIN_USER_DEFAULT\" for JELLYFIN_USER."
+        if id -u "$JELLYFIN_USER" >/dev/null 2>&1; then
+            log "Found user-defined JELLYFIN_USER, \"$JELLYFIN_USER\"."
+        else
+            fail "ERROR: User-defined JELLYFIN_USER \"$JELLYFIN_USER\" does not exist!" 6
+        fi
+    elif id -u "$JELLYFIN_USER_DEFAULT" >/dev/null 2>&1; then
+        log "Found Jellyfin user \"$JELLYFIN_USER_DEFAULT\"."
         export JELLYFIN_USER="$JELLYFIN_USER_DEFAULT"
+    else
+        fail 'ERROR: No "jellyfin" user account found on this computer.' 7
     fi
 }
 
