@@ -1,6 +1,7 @@
 #!/bin/bash
 set -eo pipefail
 export JELLYFIN_METADATA_DIR_DEFAULT='/var/lib/jellyfin/metadata'
+export JELLYFIN_USER_DEFAULT='jellyfin'
 
 # check for dependencies
 function check-deps {
@@ -54,6 +55,16 @@ function find-jellyfin-metadata-dir {
     fi
 }
 
+# look for Jellyfin user account
+function find-jellyfin-user {
+    if [[ -n "$JELLYFIN_USER" ]]; then
+        log "Found user-defined JELLYFIN_USER, \"$JELLYFIN_USER\"."
+    else
+        log "Assuming \"$JELLYFIN_USER_DEFAULT\" for JELLYFIN_USER."
+        export JELLYFIN_USER="$JELLYFIN_USER_DEFAULT"
+    fi
+}
+
 # prepend timestamp and script name to log lines
 function log {
     printf "\e[0;30m%s ${0##*/} -\e[0m $*\n" "$(date '+%F %T %Z')"
@@ -64,6 +75,7 @@ check-deps
 check-username
 check-password
 find-jellyfin-metadata-dir
+find-jellyfin-user
 export ZAP2XML_CMD="/zap2xml.pl -u '$ZAP2IT_USERNAME' -p '$ZAP2IT_PASSWORD' -U -o /data/tv-guide.xml"
 
 ee "docker run -v '$JELLYFIN_METADATA_DIR/guide:/data' shuaiscott/zap2xml /bin/sh -c \"$ZAP2XML_CMD\""
