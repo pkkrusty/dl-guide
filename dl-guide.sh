@@ -1,8 +1,8 @@
 #!/bin/bash
 set -eo pipefail
+export GIT_VERSION='' # populated by make install
 export JELLYFIN_METADATA_DIR_DEFAULT='/var/lib/jellyfin/metadata'
 export JELLYFIN_USER_DEFAULT='jellyfin'
-export VERSION_FROM_MAKE_INSTALL=''
 
 # check for dependencies
 function check-deps {
@@ -66,18 +66,21 @@ function find-jellyfin-user {
     fi
 }
 
-# return the git uri
-function git-uri {
-    if [[ -n "$VERSION_FROM_MAKE_INSTALL" ]]; then
-        VERSION="$VERSION_FROM_MAKE_INSTALL"
-    else
+# populate the git version
+function git-metadata {
+    if [[ -z "$GIT_VERSION" ]]; then
         SCRIPT_PATH="$(readlink -f "$0")"
         SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
         pushd "$SCRIPT_DIR" >/dev/null
-        VERSION="$(git describe --tags --exact-match 2>/dev/null || git rev-parse HEAD)"
+        GIT_VERSION="$(git describe --tags --exact-match 2>/dev/null || git rev-parse HEAD)"
+        export GIT_VERSION
         popd >/dev/null
     fi
-    echo "https://github.com/kj4ezj/jellyfin-tv-guide/tree/$VERSION"
+}
+
+# return the git uri
+function git-uri {
+    echo "https://github.com/kj4ezj/jellyfin-tv-guide/tree/$GIT_VERSION"
 }
 
 # prepend timestamp and script name to log lines
