@@ -93,7 +93,26 @@ function log {
     printf "\e[0;30m%s ${0##*/} -\e[0m $*\n" "$(date '+%F %T %Z')"
 }
 
+# print script version and other info
+function log-version-and-exit {
+    echo "kj4ezj/jellyfin-tv-guide:$GIT_VERSION on $GIT_BRANCH"
+    echo
+    git-uri
+    readlink -f "$0"
+    echo 'Copyright © 2024 Zach Butler'
+    echo 'MIT License'
+    exit 0
+}
+
 # main
+git-metadata
+# parse args
+for RAW_ARG in "$@"; do
+    ARG="$(echo "$RAW_ARG" | tr -d '-')"
+    if [[ "$ARG" == 'v' || "$ARG" == 'version' ]]; then
+        log-version-and-exit
+    fi
+done
 log 'Begin.'
 # check prerequisites
 check-deps
