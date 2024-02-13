@@ -144,6 +144,9 @@ for (( i=1; i <= $#; i++)); do
     ARG="$(echo "${!i}" | tr -d '-')"
     if [[ "$ARG" == 'h' || "$ARG" == 'help' || "$ARG" == '?' ]]; then
         log-help-and-exit
+    elif [[ "$(echo "$ARG" | grep -icP '^(j|(jellyfin)?user(name)?)$')" == '1' ]]; then
+        i="$(( i+1 ))"
+        JELLYFIN_USER="${!i}"
     elif [[ "$(echo "$ARG" | grep -icP '^(m|(jellyfin)?metadata(dir|folder|path)?)$')" == '1' ]]; then
         i="$(( i+1 ))"
         JELLYFIN_METADATA_DIR="${!i}"
