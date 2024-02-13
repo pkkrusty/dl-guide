@@ -1,5 +1,6 @@
 #!/bin/bash
 set -eo pipefail
+export GIT_BRANCH=''  # populated by make install
 export GIT_VERSION='' # populated by make install
 export JELLYFIN_METADATA_DIR_DEFAULT='/var/lib/jellyfin/metadata'
 export JELLYFIN_USER_DEFAULT='jellyfin'
@@ -66,8 +67,12 @@ function find-jellyfin-user {
     fi
 }
 
-# populate the git version
+# populate the git branch and version
 function git-metadata {
+    if [[ -z "$GIT_BRANCH" ]]; then
+        GIT_BRANCH="$(git branch --show-current)"
+        export GIT_BRANCH
+    fi
     if [[ -z "$GIT_VERSION" ]]; then
         SCRIPT_PATH="$(readlink -f "$0")"
         SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
