@@ -101,11 +101,11 @@ function log {
 
 # print help and exit
 function log-help-and-exit {
-    echo 'Help option not implemented yet, please see online documentation here:'
+    echo 'Help flag not written yet, please see online documentation:'
     README_URI="$(git-uri | tr -d '\n\r')"
     echo "$README_URI/README.md"
     echo
-    echo 'VERSION INFO:'
+    echo 'If you open an issue on GitHub, please include this info:'
     log-version-and-exit
 }
 
