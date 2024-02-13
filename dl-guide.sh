@@ -144,6 +144,9 @@ for (( i=1; i <= $#; i++)); do
     ARG="$(echo "${!i}" | tr -d '-')"
     if [[ "$ARG" == 'h' || "$ARG" == 'help' || "$ARG" == '?' ]]; then
         log-help-and-exit
+    elif [[ "$(echo "$ARG" | grep -icP '^(u|(zap2it)?user(name)?)$')" == '1' ]]; then
+        i="$(( i+1 ))"
+        ZAP2IT_USERNAME="${!i}"
     elif [[ "$ARG" == 'v' || "$ARG" == 'version' ]]; then
         log-version-and-exit
     fi
