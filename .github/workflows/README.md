@@ -37,5 +37,5 @@ There are currently no outputs of this GitHub Actions workflow, besides the exit
 For assistance with the CI system, please open an issue in this repo.
 
 ***
-> **_Legal Notice_**
+> **_Legal Notice_**  
 > This document was created in collaboration with a large language model, machine learning algorithm, or weak artificial intelligence (AI). This notice is required in some countries.

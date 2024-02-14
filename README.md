@@ -46,5 +46,5 @@ Please make sure any pipeline changes do not break `act` compatibility.
 - [zap2it](https://tvlistings.zap2it.com)
 
 ***
-> **_Legal Notice_**
+> **_Legal Notice_**  
 > This repo contains assets created in collaboration with a large language model, machine learning algorithm, or weak artificial intelligence (AI). This notice is required in some countries.
