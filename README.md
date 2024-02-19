@@ -44,6 +44,9 @@ Please make sure any pipeline changes do not break `act` compatibility.
     - [GitHub](https://github.com/jellyfin)
     - [Website](https://jellyfin.org)
 - [zap2it](https://tvlistings.zap2it.com)
+- zap2xml
+    - [Docker Hub](https://hub.docker.com/r/kj4ezj/zap2xml)
+    - [GitHub](https://github.com/kj4ezj/zap2xml)
 
 ***
 > **_Legal Notice_**  

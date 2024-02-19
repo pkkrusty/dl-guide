@@ -167,7 +167,7 @@ find-jellyfin-user
 # download guide data
 log-last-run-time "$JELLYFIN_METADATA_DIR/guide/tv-guide.xml"
 ZAP2XML_CMD="/zap2xml.pl -u '$ZAP2IT_USERNAME' -p '$ZAP2IT_PASSWORD' -U -o /data/tv-guide.xml"
-ee "docker run -v '$JELLYFIN_METADATA_DIR/guide:/data' shuaiscott/zap2xml /bin/sh -c \"$ZAP2XML_CMD\""
+ee "docker run -v '$JELLYFIN_METADATA_DIR/guide:/data' kj4ezj/zap2xml /bin/sh -c \"$ZAP2XML_CMD\""
 # fix permissions
 ee "chmod -x '$JELLYFIN_METADATA_DIR/guide/tv-guide.xml'"
 ee "chown -R '$JELLYFIN_USER:$JELLYFIN_USER' '$JELLYFIN_METADATA_DIR/guide'"
