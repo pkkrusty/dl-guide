@@ -171,8 +171,8 @@ function log-last-run-time {
 function log-version-and-exit {
     echo "$GIT_REPO:$GIT_VERSION on $GIT_BRANCH"
     echo
-    git-uri
     readlink -f "$0"
+    git-uri
     echo 'Copyright © 2024 Zach Butler'
     echo 'MIT License'
     exit 0
