@@ -173,6 +173,16 @@ function log-version-and-exit {
     echo
     readlink -f "$0"
     git-uri
+    if [[ -f /etc/os-release ]]; then
+        source /etc/os-release
+        printf 'Running on %s %s.' "$NAME" "$VERSION"
+    elif [[ "$(uname)" == 'Darwin' ]]; then
+        printf 'Running on %s %s.' "$(sw_vers -productName)" "$(sw_vers -productVersion)"
+    elif [[ "$(uname)" == 'Linux' ]]; then
+        printf 'Running on Linux %s.' "$(uname -r)"
+    else
+        echo 'Running on unidentified OS.'
+    fi
     echo 'Copyright © 2024 Zach Butler'
     echo 'MIT License'
     exit 0
