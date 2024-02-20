@@ -54,6 +54,8 @@ function find-chown-user {
         log "Found \"jellyfin\" user."
         CHOWN_USER='jellyfin'
         export CHOWN_USER
+    else
+        log 'Not changing ownership of output file.'
     fi
 }
 
