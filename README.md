@@ -4,6 +4,7 @@ Download TV guide metadata for Jellyfin using a cron job.
 ### Index
 1. [Installation](#installation)
     1. [bpkg](#bpkg)
+    1. [Manual](#manual)
 1. [Development](#development)
     1. [Lint](#lint)
     1. [CI](#ci)
@@ -18,6 +19,16 @@ This is the recommended installation method. Install [bpkg](https://github.com/b
 sudo bpkg install kj4ezj/jellyfin-tv-guide
 ```
 This does a global install so `dl-guide` should now be in your system `PATH`.
+
+### Manual
+If you can't or won't use `bpkg`, you can install manually. Clone this repo locally with `git` using your preferred method. You can invoke the script directly from your copy of the repo, or perform the same global install that `bpkg` does using `make` from the root of this repo.
+```bash
+sudo make install
+```
+Do the reverse to uninstall. From the root of this repo in your terminal:
+```bash
+sudo make uninstall
+```
 
 ## Development
 Contributors need these tools installed.
