@@ -3,6 +3,7 @@ Download TV guide metadata for Jellyfin using a cron job.
 
 ### Index
 1. [Installation](#installation)
+    1. [bpkg](#bpkg)
 1. [Development](#development)
     1. [Lint](#lint)
     1. [CI](#ci)
@@ -10,6 +11,13 @@ Download TV guide metadata for Jellyfin using a cron job.
 
 ## Installation
 This tool runs a docker container, so you will need the [docker engine](https://docs.docker.com/engine/install) installed on your system to use it.
+
+### bpkg
+This is the recommended installation method. Install [bpkg](https://github.com/bpkg/bpkg) if you have not already. Then, install using `bpkg`.
+```bash
+sudo bpkg install kj4ezj/jellyfin-tv-guide
+```
+This does a global install so `dl-guide` should now be in your system `PATH`.
 
 ## Development
 Contributors need these tools installed.
