@@ -77,7 +77,7 @@ function find-output-dir {
         else
             fail "ERROR: Folder does not exist at \"$OUTPUT_DIR\"!" 5
         fi
-        if [[ -z "$OUTPUT_FILE" ]]; then
+        if [[ -z "${OUTPUT_FILE//./}" ]]; then
             OUTPUT_FILE="$OUTPUT_FILE_DEFAULT"
         fi
     elif [[ -d "$JELLYFIN_METADATA_DIR_DEFAULT" ]]; then
