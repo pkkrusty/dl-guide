@@ -161,7 +161,7 @@ $ dl-guide [OPTIONS]
 
     -o, --output, --output-dir, --output-file, --path <PATH>
         Specify the output directory or file. If a directory is given, the
-        default file name "tv-guide.xml" will be used. If no output file,
+        default file name (tv-guide.xml) will be used. If no output file,
         folder, or path is given, then the default Jellyfin metadata directory
         will be used if it exists.
 
@@ -180,10 +180,10 @@ $ dl-guide [OPTIONS]
         The output directory or file. Equivalent to "--output".
 
     ZAP2IT_PASSWORD (required)
-        The password for the zap2it account.
+        The password for your zap2it account.
 
     ZAP2IT_USERNAME
-        The username for the zap2it account. Equivalent to "--username".
+        The username for your zap2it account. Equivalent to "--username".
 
 [NOTES]
 Arguments take precedence over environment variables.
