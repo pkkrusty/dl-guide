@@ -3,7 +3,6 @@ set -eo pipefail
 export GIT_BRANCH=''  # populated by make install
 export GIT_VERSION='' # populated by make install
 export JELLYFIN_METADATA_DIR_DEFAULT='/var/lib/jellyfin/metadata'
-export JELLYFIN_USER_DEFAULT='jellyfin'
 
 # check for dependencies
 function check-deps {
@@ -43,6 +42,21 @@ function fail {
     exit "${2:-1}"
 }
 
+# look for other user account
+function find-chown-user {
+    if [[ -n "$CHOWN_USER" ]]; then
+        if id -u "$CHOWN_USER" >/dev/null 2>&1; then
+            log "Found user-defined CHOWN_USER, \"$CHOWN_USER\"."
+        else
+            fail "ERROR: User-defined CHOWN_USER \"$CHOWN_USER\" does not exist!" 6
+        fi
+    elif [[ "$USER" != 'jellyfin' ]] && id -u 'jellyfin' >/dev/null 2>&1; then
+        log "Found \"jellyfin\" user."
+        CHOWN_USER='jellyfin'
+        export CHOWN_USER
+    fi
+}
+
 # look for Jellyfin metadata path
 function find-jellyfin-metadata-dir {
     if [[ -n "$JELLYFIN_METADATA_DIR" && -d "$JELLYFIN_METADATA_DIR" ]]; then
@@ -54,22 +68,6 @@ function find-jellyfin-metadata-dir {
         export JELLYFIN_METADATA_DIR="$JELLYFIN_METADATA_DIR_DEFAULT"
     else
         fail 'ERROR: JELLYFIN_METADATA_DIR not found!' 5
-    fi
-}
-
-# look for Jellyfin user account
-function find-jellyfin-user {
-    if [[ -n "$JELLYFIN_USER" ]]; then
-        if id -u "$JELLYFIN_USER" >/dev/null 2>&1; then
-            log "Found user-defined JELLYFIN_USER, \"$JELLYFIN_USER\"."
-        else
-            fail "ERROR: User-defined JELLYFIN_USER \"$JELLYFIN_USER\" does not exist!" 6
-        fi
-    elif id -u "$JELLYFIN_USER_DEFAULT" >/dev/null 2>&1; then
-        log "Found Jellyfin user \"$JELLYFIN_USER_DEFAULT\"."
-        export JELLYFIN_USER="$JELLYFIN_USER_DEFAULT"
-    else
-        fail 'ERROR: No "jellyfin" user account found on this computer.' 7
     fi
 }
 
@@ -142,11 +140,11 @@ git-metadata
 # parse args
 for (( i=1; i <= $#; i++)); do
     ARG="$(echo "${!i}" | tr -d '-')"
-    if [[ "$ARG" == 'h' || "$ARG" == 'help' || "$ARG" == '?' ]]; then
-        log-help-and-exit
-    elif [[ "$(echo "$ARG" | grep -icP '^(j|(jellyfin)?user(name)?)$')" == '1' ]]; then
+    if [[ "$(echo "$ARG" | grep -icP '^(c|chown|(change)?owner(ship)?)$')" == '1' ]]; then
         i="$(( i+1 ))"
-        JELLYFIN_USER="${!i}"
+        CHOWN_USER="${!i}"
+    elif [[ "$ARG" == 'h' || "$ARG" == 'help' || "$ARG" == '?' ]]; then
+        log-help-and-exit
     elif [[ "$(echo "$ARG" | grep -icP '^(m|(jellyfin)?metadata(dir|folder|path)?)$')" == '1' ]]; then
         i="$(( i+1 ))"
         JELLYFIN_METADATA_DIR="${!i}"
@@ -164,15 +162,17 @@ log 'Begin.'
 check-deps
 check-username
 check-password
+find-chown-user
 find-jellyfin-metadata-dir
-find-jellyfin-user
 # download guide data
 log-last-run-time "$JELLYFIN_METADATA_DIR/guide/tv-guide.xml"
 ZAP2XML_CMD="/zap2xml.pl -u '$ZAP2IT_USERNAME' -p '$ZAP2IT_PASSWORD' -U -o /data/tv-guide.xml"
 ee "docker run -v '$JELLYFIN_METADATA_DIR/guide:/data' kj4ezj/zap2xml /bin/sh -c \"$ZAP2XML_CMD\""
 # fix permissions
 ee "chmod -x '$JELLYFIN_METADATA_DIR/guide/tv-guide.xml'"
-ee "chown -R '$JELLYFIN_USER:$JELLYFIN_USER' '$JELLYFIN_METADATA_DIR/guide'"
+if [[ -n "$CHOWN_USER" ]]; then
+    ee "chown '$CHOWN_USER:$CHOWN_USER' '$JELLYFIN_METADATA_DIR/guide/tv-guide.xml'"
+fi
 
 log 'Done.'
 
