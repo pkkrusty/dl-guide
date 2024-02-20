@@ -1,6 +1,13 @@
 # Jellyfin TV Guide
 Download TV guide metadata for Jellyfin using a cron job.
 
+> [!TIP]
+> **tl;dr**
+> ```bash
+> export ZAP2IT_PASSWORD='hunter2'
+> sudo ./dl-guide.sh -u 'someone@example.com' -o '.' -c "$USER"
+> ```
+
 ### Index
 1. [Installation](#installation)
     1. [bpkg](#bpkg)
