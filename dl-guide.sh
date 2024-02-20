@@ -175,14 +175,15 @@ function log-version-and-exit {
     git-uri
     if [[ -f /etc/os-release ]]; then
         source /etc/os-release
-        printf 'Running on %s %s.' "$NAME" "$VERSION"
+        printf 'Running on %s %s with ' "$NAME" "$VERSION"
     elif [[ "$(uname)" == 'Darwin' ]]; then
-        printf 'Running on %s %s.' "$(sw_vers -productName)" "$(sw_vers -productVersion)"
+        printf 'Running on %s %s with ' "$(sw_vers -productName)" "$(sw_vers -productVersion)"
     elif [[ "$(uname)" == 'Linux' ]]; then
-        printf 'Running on Linux %s.' "$(uname -r)"
+        printf 'Running on Linux %s with ' "$(uname -r)"
     else
-        echo 'Running on unidentified OS.'
+        echo 'Running on unidentified OS with '
     fi
+    bash --version | head -1
     echo 'Copyright © 2024 Zach Butler'
     echo 'MIT License'
     exit 0
