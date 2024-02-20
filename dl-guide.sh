@@ -67,13 +67,16 @@ function find-output-dir {
     elif [[ -n "$OUTPUT" ]]; then
         log "Found user-defined output: \"$OUTPUT\""
         OUTPUT_DIR="$(get-dir "$OUTPUT")"
+        OUTPUT_FILE="$(get-filename "$OUTPUT")"
+        if [[ "$OUTPUT_DIR" == "$OUTPUT_FILE" ]]; then
+            OUTPUT_DIR="$(readlink -f .)"
+        fi
         if [[ -d "$OUTPUT_DIR" ]]; then
             OUTPUT_DIR="$(readlink -f "$OUTPUT_DIR")"
             log "Folder exists at \"$OUTPUT_DIR\"."
         else
             fail "ERROR: Folder does not exist at \"$OUTPUT_DIR\"!" 5
         fi
-        OUTPUT_FILE="$(get-filename "$OUTPUT")"
         if [[ -z "$OUTPUT_FILE" ]]; then
             OUTPUT_FILE="$OUTPUT_FILE_DEFAULT"
         fi
