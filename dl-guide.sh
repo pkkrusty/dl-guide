@@ -142,12 +142,68 @@ function log {
 
 # print help and exit
 function log-help-and-exit {
-    echo 'Help flag not written yet, please see online documentation:'
+    echo '
+                                ############
+                                # dl-guide #
+                                ############
+
+Download TV guide metadata, then set the correct file permissions and ownership.
+
+$ dl-guide [OPTIONS]
+
+[OPTIONS] - command-line arguments to change behavior
+    -c, --chown, --owner, --change-owner <USER>
+        Change the ownership of the output file to the specified user. If not
+        specified, the "jellyfin" user will be used if it exists. Otherwise,
+        the ownership will not be changed.
+            Requires script be run with "sudo" or root privileges.
+
+    -h, --help, -?
+        Print this help message and exit.
+
+    -o, --output, --output-dir, --output-file, --path <PATH>
+        Specify the output directory or file. If a directory is given, the
+        default file name "tv-guide.xml" will be used. If no output file,
+        folder, or path is given, then the default Jellyfin metadata directory
+        will be used if it exists.
+
+    -u, --username, --zap2it-username <USERNAME>
+        Specify the zap2it username.
+
+    -v, --version
+        Print the script version and debug info.
+
+[VARIABLES] - configurable environment variables
+    CHOWN_USER
+        The user to change the ownership of the output file to. Equivalent to
+        "--chown".
+
+    OUTPUT
+        The output directory or file. Equivalent to "--output".
+
+    ZAP2IT_PASSWORD (required)
+        The password for the zap2it account.
+
+    ZAP2IT_USERNAME
+        The username for the zap2it account. Equivalent to "--username".
+
+[NOTES]
+Arguments take precedence over environment variables.
+
+A zap2it account is required to use this script. The password cannot be provided
+as a command-line argument because it would be visible to other programs via the
+process list and shell history.
+
+This script runs a docker container, so docker engine is required and the script
+must have permission to run containers.
+
+[DOCUMENTATION]'
     README_URI="$(git-uri | tr -d '\n\r')"
     echo "$README_URI/README.md"
     echo
-    echo 'If you open an issue on GitHub, please include this info:'
-    log-version-and-exit
+    echo 'Copyright © 2024 Zach Butler'
+    echo 'MIT License'
+    exit 0
 }
 
 # print the timestamp the guide was last downloaded
