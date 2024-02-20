@@ -52,10 +52,6 @@ function find-chown-user {
         else
             fail "ERROR: User-defined CHOWN_USER \"$CHOWN_USER\" does not exist!" 6
         fi
-    elif [[ "$USER" != 'jellyfin' ]] && id -u 'jellyfin' >/dev/null 2>&1; then
-        log "Found \"jellyfin\" user."
-        CHOWN_USER='jellyfin'
-        export CHOWN_USER
     else
         log 'Not changing ownership of output file.'
     fi
@@ -154,8 +150,7 @@ $ dl-guide [OPTIONS]
 [OPTIONS] - command-line arguments to change behavior
     -c, --chown, --owner, --change-owner <USER>
         Change the ownership of the output file to the specified user. If not
-        specified, the "jellyfin" user will be used if it exists. Otherwise,
-        the ownership will not be changed.
+        specified, the ownership will not be changed.
             Requires script be run with "sudo" or root privileges.
 
     -h, --help, -?
