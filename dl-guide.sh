@@ -3,6 +3,7 @@ set -eo pipefail
 export GIT_BRANCH=''  # populated by make install
 export GIT_VERSION='' # populated by make install
 export JELLYFIN_METADATA_DIR_DEFAULT='/var/lib/jellyfin/metadata'
+export OUTPUT_FILE_DEFAULT='tv-guide.xml'
 
 # check for dependencies
 function check-deps {
@@ -59,18 +60,47 @@ function find-chown-user {
     fi
 }
 
-# look for Jellyfin metadata path
-function find-jellyfin-metadata-dir {
-    if [[ -n "$JELLYFIN_METADATA_DIR" && -d "$JELLYFIN_METADATA_DIR" ]]; then
-        log "Found user-defined JELLYFIN_METADATA_DIR at \"$JELLYFIN_METADATA_DIR\"."
-    elif [[ -n "$JELLYFIN_METADATA_DIR" ]]; then
-        fail 'ERROR: User-defined JELLYFIN_METADATA_DIR does not exist!' 4
+# look for output path
+function find-output-dir {
+    # parse user input and look for directory
+    if [[ -n "$OUTPUT" && -d "$OUTPUT" ]]; then
+        log "Found user-defined output dir at \"$OUTPUT\"."
+        OUTPUT_DIR="$(readlink -f "$(get-dir "$OUTPUT")")"
+        OUTPUT_FILE="$OUTPUT_FILE_DEFAULT"
+    elif [[ -n "$OUTPUT" ]]; then
+        log "Found user-defined output: \"$OUTPUT\""
+        OUTPUT_DIR="$(get-dir "$OUTPUT")"
+        if [[ -d "$OUTPUT_DIR" ]]; then
+            OUTPUT_DIR="$(readlink -f "$OUTPUT_DIR")"
+            log "Folder exists at \"$OUTPUT_DIR\"."
+        else
+            fail "ERROR: Folder does not exist at \"$OUTPUT_DIR\"!" 5
+        fi
+        OUTPUT_FILE="$(get-filename "$OUTPUT")"
+        if [[ -z "$OUTPUT_FILE" ]]; then
+            OUTPUT_FILE="$OUTPUT_FILE_DEFAULT"
+        fi
     elif [[ -d "$JELLYFIN_METADATA_DIR_DEFAULT" ]]; then
-        log "Found Jellyfin metadata directory at \"$JELLYFIN_METADATA_DIR_DEFAULT\"."
-        export JELLYFIN_METADATA_DIR="$JELLYFIN_METADATA_DIR_DEFAULT"
+        log "Found Jellyfin metadata directory at \"$JELLYFIN_METADATA_DIR_DEFAULT\", using that."
+        OUTPUT_DIR="$JELLYFIN_METADATA_DIR_DEFAULT"
+        OUTPUT_FILE="$OUTPUT_FILE_DEFAULT"
     else
-        fail 'ERROR: JELLYFIN_METADATA_DIR not found!' 5
+        fail 'ERROR: No output path given!' 4
     fi
+    # construct full path
+    OUTPUT_PATH="$OUTPUT_DIR/$OUTPUT_FILE"
+    log "Using output path: \"$OUTPUT_PATH\""
+    export OUTPUT_DIR OUTPUT_FILE OUTPUT_PATH
+}
+
+# get directory from path
+function get-dir {
+    echo "${1%/*}"
+}
+
+# get file from path
+function get-filename {
+    echo "${1##*/}"
 }
 
 # populate the git branch and version
@@ -147,9 +177,9 @@ for (( i=1; i <= $#; i++)); do
         CHOWN_USER="${!i}"
     elif [[ "$ARG" == 'h' || "$ARG" == 'help' || "$ARG" == '?' ]]; then
         log-help-and-exit
-    elif [[ "$(echo "$ARG" | grep -icP '^(m|(jellyfin)?metadata(dir|folder|path)?)$')" == '1' ]]; then
+    elif [[ "$(echo "$ARG" | grep -icP '^(o|out(put)?(dir|file|folder|path)?)$')" == '1' ]]; then
         i="$(( i+1 ))"
-        JELLYFIN_METADATA_DIR="${!i}"
+        OUTPUT="${!i}"
     elif [[ "$(echo "$ARG" | grep -icP '^(p|(zap2it)?password)$')" == '1' ]]; then
         fail 'ERROR: It is not safe to provide your password as an argument!' 8
     elif [[ "$(echo "$ARG" | grep -icP '^(u|(zap2it)?user(name)?)$')" == '1' ]]; then
@@ -167,13 +197,13 @@ check-password
 find-chown-user
 find-jellyfin-metadata-dir
 # download guide data
-log-last-run-time "$JELLYFIN_METADATA_DIR/guide/tv-guide.xml"
-ZAP2XML_CMD="/zap2xml.pl -u '$ZAP2IT_USERNAME' -p '$ZAP2IT_PASSWORD' -U -o /data/tv-guide.xml"
-ee "docker run -v '$JELLYFIN_METADATA_DIR/guide:/data' kj4ezj/zap2xml /bin/sh -c \"$ZAP2XML_CMD\""
+log-last-run-time "$OUTPUT_PATH"
+ZAP2XML_CMD="/zap2xml.pl -u '$ZAP2IT_USERNAME' -p '$ZAP2IT_PASSWORD' -U -o '/data/$OUTPUT_FILE'"
+ee "docker run -v '$OUTPUT_DIR:/data' kj4ezj/zap2xml /bin/sh -c \"$ZAP2XML_CMD\""
 # fix permissions
-ee "chmod -x '$JELLYFIN_METADATA_DIR/guide/tv-guide.xml'"
+ee "chmod -x '$OUTPUT_PATH'"
 if [[ -n "$CHOWN_USER" ]]; then
-    ee "chown '$CHOWN_USER:$CHOWN_USER' '$JELLYFIN_METADATA_DIR/guide/tv-guide.xml'"
+    ee "chown '$CHOWN_USER:$CHOWN_USER' '$OUTPUT_PATH'"
 fi
 
 log 'Done.'
