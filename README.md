@@ -2,10 +2,14 @@
 Download TV guide metadata for Jellyfin using a cron job.
 
 ### Index
+1. [Installation](#installation)
 1. [Development](#development)
     1. [Lint](#lint)
     1. [CI](#ci)
 1. [See Also](#see-also)
+
+## Installation
+This tool runs a docker container, so you will need the [docker engine](https://docs.docker.com/engine/install) installed on your system to use it.
 
 ## Development
 Contributors need these tools installed.
