@@ -1,6 +1,7 @@
 #!/bin/bash
 set -eo pipefail
 export GIT_BRANCH=''  # populated by make install
+export GIT_ORIGIN=''  # populated by make install
 export GIT_VERSION='' # populated by make install
 export JELLYFIN_METADATA_DIR_DEFAULT='/var/lib/jellyfin/metadata'
 export OUTPUT_FILE_DEFAULT='tv-guide.xml'
@@ -103,12 +104,21 @@ function get-filename {
     echo "${1##*/}"
 }
 
-# populate the git branch and version
+# populate the git branch, origin, and version
 function git-metadata {
+    # branch
     if [[ -z "$GIT_BRANCH" ]]; then
         GIT_BRANCH="$(git branch --show-current)"
         export GIT_BRANCH
     fi
+    # remote origin
+    if [[ -z "$GIT_ORIGIN" ]]; then
+        GIT_ORIGIN="$(git remote get-url origin)"
+    fi
+    ORIGIN="$(echo "$GIT_ORIGIN" | sed 's/[.]git//' | sed 's_https?://__' | tr ':' '/')"
+    GIT_REPO="${ORIGIN#*/}"
+    export GIT_ORIGIN GIT_REPO
+    # version string
     if [[ -z "$GIT_VERSION" ]]; then
         SCRIPT_PATH="$(readlink -f "$0")"
         SCRIPT_DIR="$(dirname "$SCRIPT_PATH")"
@@ -121,7 +131,8 @@ function git-metadata {
 
 # return the git uri
 function git-uri {
-    echo "https://github.com/kj4ezj/jellyfin-tv-guide/tree/$GIT_VERSION"
+    ORIGIN="$(echo "$GIT_ORIGIN" | sed 's/[.]git//' | sed -E 's_(git@|https://)__' | tr ':' '/')"
+    echo "https://$ORIGIN/tree/$GIT_VERSION"
 }
 
 # prepend timestamp and script name to log lines
@@ -158,7 +169,7 @@ function log-last-run-time {
 
 # print script version and other info
 function log-version-and-exit {
-    echo "kj4ezj/jellyfin-tv-guide:$GIT_VERSION on $GIT_BRANCH"
+    echo "$GIT_REPO:$GIT_VERSION on $GIT_BRANCH"
     echo
     git-uri
     readlink -f "$0"
