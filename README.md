@@ -24,21 +24,22 @@ Download TV guide metadata for Jellyfin using a cron job.
 This tool runs a docker container, so you will need the [docker engine](https://docs.docker.com/engine/install) installed on your system to use it.
 
 ### bpkg
-This is the recommended installation method. Install [bpkg](https://github.com/bpkg/bpkg) if you have not already. Then, install using `bpkg`.
+This is the recommended installation method. Install [bpkg](https://github.com/bpkg/bpkg) if you have not already. Install the [echo-eval](https://github.com/kj4ezj/echo-eval) dependency.
+```bash
+sudo bpkg install -g kj4ezj/ee
+```
+Then, install this tool using `bpkg`.
 ```bash
 sudo bpkg install kj4ezj/jellyfin-tv-guide
 ```
 This does a global install so `dl-guide` should now be in your system `PATH`.
 
 ### Manual
-If you can't or won't use `bpkg`, you can install manually. Clone this repo locally with `git` using your preferred method. You can invoke the script directly from your copy of the repo, or perform the same global install that `bpkg` does using `make` from the root of this repo.
+Install [bpkg](https://github.com/bpkg/bpkg) if you have not already. Clone this repo locally with `git` using your preferred method. Install project dependencies.
 ```bash
-sudo make install
+bpkg install
 ```
-Do the reverse to uninstall. From the root of this repo in your terminal:
-```bash
-sudo make uninstall
-```
+You can invoke the script directly from your copy of the repo.
 
 ## Usage
 You need a [zap2it](https://tvlistings.zap2it.com) account setup with your rough location and provider to use this script. What you see while logged into the online TV guide is what this script will download.
