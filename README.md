@@ -93,7 +93,7 @@ If you don't care about it being in your shell history, you can export it as a v
 ```bash
 export ZAP2IT_PASSWORD='hunter2'
 ```
-At least this keeps it out of your process list.
+At least this keeps it out of your process list while the script is running.
 
 If you are using Kubernetes, you can make this variable available like you would any other secret.
 
