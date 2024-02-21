@@ -154,7 +154,7 @@ $ dl-guide [OPTIONS]
     -c, --chown, --owner, --change-owner <USER>
         Change the ownership of the output file to the specified user. If not
         specified, the ownership will not be changed.
-            Requires script be run with "sudo" or root privileges.
+            Requires script be run with "sudo -E" or root privileges.
 
     -h, --help, -?
         Print this help message and exit.

@@ -52,7 +52,7 @@ $ dl-guide [OPTIONS]
     -c, --chown, --owner, --change-owner <USER>
         Change the ownership of the output file to the specified user. If not
         specified, the ownership will not be changed.
-            Requires script be run with "sudo" or root privileges.
+            Requires script be run with "sudo -E" or root privileges.
 
     -h, --help, -?
         Print this help message and exit.
@@ -105,7 +105,7 @@ Jellyfin doesn't care where you put the `tv-guide.xml` file, but I chose to put 
 
 Jellyfin also may run under its own user account (usually `jellyfin`), depending how you installed it, in which case you will need to pass that username to `dl-guide` so it can make sure the permissions are correct for Jellyfin to read the output file.
 ```bash
-sudo dl-guide -u 'someone@example.com' -o /var/lib/jellyfin/metadata -c jellyfin
+sudo -E dl-guide -u 'someone@example.com' -o /var/lib/jellyfin/metadata -c jellyfin
 ```
 After that, follow [their instructions](https://jellyfin.org/docs/general/server/live-tv/setup-guide/#adding-guide-data) to point Jellyfin to the `tv-guide.xml` file in `/var/lib/jellyfin/metadata`.
 
