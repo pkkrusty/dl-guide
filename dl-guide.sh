@@ -114,7 +114,7 @@ function git-metadata {
     if [[ -z "$GIT_ORIGIN" ]]; then
         GIT_ORIGIN="$(git remote get-url origin)"
     fi
-    ORIGIN="$(echo "$GIT_ORIGIN" | sed 's/[.]git//' | sed 's_https?://__' | tr ':' '/')"
+    ORIGIN="$(echo "$GIT_ORIGIN" | sed 's/[.]git//' | sed -E 's_(git@|https?://)__' | tr ':' '/')"
     GIT_REPO="${ORIGIN#*/}"
     export GIT_ORIGIN GIT_REPO
     # version string
@@ -130,7 +130,7 @@ function git-metadata {
 
 # return the git uri
 function git-uri {
-    ORIGIN="$(echo "$GIT_ORIGIN" | sed 's/[.]git//' | sed -E 's_(git@|https://)__' | tr ':' '/')"
+    ORIGIN="$(echo "$GIT_ORIGIN" | sed 's/[.]git//' | sed -E 's_(git@|https?://)__' | tr ':' '/')"
     echo "https://$ORIGIN/tree/$GIT_VERSION"
 }
 
