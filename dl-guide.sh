@@ -62,7 +62,7 @@ function find-output-dir {
     # parse user input and look for directory
     if [[ -n "$OUTPUT" && -d "$OUTPUT" ]]; then
         log "Found user-defined output dir at \"$OUTPUT\"."
-        OUTPUT_DIR="$(readlink -f "$(get-dir "$OUTPUT")")"
+        OUTPUT_DIR="$(readlink -f "$OUTPUT")"
         OUTPUT_FILE="$OUTPUT_FILE_DEFAULT"
     elif [[ -n "$OUTPUT" ]]; then
         log "Found user-defined output: \"$OUTPUT\""
