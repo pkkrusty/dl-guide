@@ -13,6 +13,7 @@ Download TV guide metadata for Jellyfin using a cron job.
     1. [bpkg](#bpkg)
     1. [Manual](#manual)
 1. [Usage](#usage)
+    1. [Password](#password)
 1. [Development](#development)
     1. [Lint](#lint)
     1. [CI](#ci)
@@ -76,6 +77,23 @@ Variable | Type | Description
 `ZAP2IT_USERNAME` | String | The username for your zap2it account. Equivalent to `--username`.
 
 Arguments take precedence over environment variables.
+
+### Password
+Your zap2it password cannot be provided as a command-line argument because it would be visible to other programs on your computer via the process list and shell history. The best option is to save it to a file somewhere...
+```bash
+export ZAP2IT_PASSWORD='hunter2'
+```
+...then source the file.
+```bash
+source ~/.secrets
+```
+If you don't care about it being in your shell history, you can export it as a variable.
+```bash
+export ZAP2IT_PASSWORD='hunter2'
+```
+At least this keeps it out of your process list.
+
+If you are using Kubernetes, you can make this variable available like you would any other secret.
 
 ## Development
 Contributors need these tools installed.
