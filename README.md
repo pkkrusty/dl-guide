@@ -12,6 +12,7 @@ Download TV guide metadata for Jellyfin using a cron job.
 1. [Installation](#installation)
     1. [bpkg](#bpkg)
     1. [Manual](#manual)
+1. [Usage](#usage)
 1. [Development](#development)
     1. [Lint](#lint)
     1. [CI](#ci)
@@ -36,6 +37,45 @@ Do the reverse to uninstall. From the root of this repo in your terminal:
 ```bash
 sudo make uninstall
 ```
+
+## Usage
+You need a [zap2it](https://tvlistings.zap2it.com) account setup with your rough location and provider to use this script. What you see while logged into the online TV guide is what this script will download.
+
+You can provide inputs to `dl-guide` as arguments...
+```
+$ dl-guide [OPTIONS]
+
+[OPTIONS] - command-line arguments to change behavior
+    -c, --chown, --owner, --change-owner <USER>
+        Change the ownership of the output file to the specified user. If not
+        specified, the ownership will not be changed.
+            Requires script be run with "sudo" or root privileges.
+
+    -h, --help, -?
+        Print this help message and exit.
+
+    -o, --output, --output-dir, --output-file, --path <PATH>
+        Specify the output directory or file. If a directory is given, the
+        default file name (tv-guide.xml) will be used. If no output file,
+        folder, or path is given, then the default Jellyfin metadata directory
+        will be used if it exists.
+
+    -u, --username, --zap2it-username <USERNAME>
+        Specify the zap2it username.
+
+    -v, --version
+        Print the script version and debug info.
+```
+...or using environment variables.
+
+Variable | Type | Description
+--- | --- | ---
+`CHOWN_USER` | String | The user to change the ownership of the output file to. Equivalent to '--chown'.
+`OUTPUT` | String | The output directory or file. Equivalent to `--output`.
+`ZAP2IT_PASSWORD` | String | The password for your zap2it account (**required**).
+`ZAP2IT_USERNAME` | String | The username for your zap2it account. Equivalent to `--username`.
+
+Arguments take precedence over environment variables.
 
 ## Development
 Contributors need these tools installed.
