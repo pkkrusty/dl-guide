@@ -271,7 +271,7 @@ check-deps
 check-username
 check-password
 find-chown-user
-find-jellyfin-metadata-dir
+find-output-dir
 # download guide data
 log-last-run-time "$OUTPUT_PATH"
 ZAP2XML_CMD="/zap2xml.pl -u '$ZAP2IT_USERNAME' -p '$ZAP2IT_PASSWORD' -U -o '/data/$OUTPUT_FILE'"
