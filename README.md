@@ -14,6 +14,7 @@ Download TV guide metadata for Jellyfin using a cron job.
     1. [Manual](#manual)
 1. [Usage](#usage)
     1. [Password](#password)
+    1. [Jellyfin](#jellyfin)
 1. [Development](#development)
     1. [Lint](#lint)
     1. [CI](#ci)
@@ -94,6 +95,18 @@ export ZAP2IT_PASSWORD='hunter2'
 At least this keeps it out of your process list.
 
 If you are using Kubernetes, you can make this variable available like you would any other secret.
+
+### Jellyfin
+Jellyfin doesn't care where you put the `tv-guide.xml` file, but I chose to put it in my Jellyfin metadata directory.
+
+> [!TIP]
+> You can find your Jellyfin metadata directory in your Jellyfin web portal > hamburger menu (three horizontal lines) > Administration > Dashboard, scroll down and you will see it under `Paths`. Mine was `/var/lib/jellyfin/metadata`.
+
+Jellyfin also may run under its own user account (usually `jellyfin`), depending how you installed it, in which case you will need to pass that username to `dl-guide` so it can make sure the permissions are correct for Jellyfin to read the output file.
+```bash
+sudo dl-guide -u 'someone@example.com' -o /var/lib/jellyfin/metadata -c jellyfin
+```
+After that, follow [their instructions](https://jellyfin.org/docs/general/server/live-tv/setup-guide/#adding-guide-data) to point Jellyfin to the `tv-guide.xml` file in `/var/lib/jellyfin/metadata`.
 
 ## Development
 Contributors need these tools installed.
