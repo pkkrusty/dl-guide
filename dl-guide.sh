@@ -39,7 +39,7 @@ function check-username {
 # fail with a useful error
 function fail {
     log "\e[1;31m$1\e[0m"
-    log 'Documentation: https://github.com/kj4ezj/jellyfin-tv-guide'
+    log 'Documentation: https://github.com/kj4ezj/dl-guide'
     log 'Exiting...'
     exit "${2:-1}"
 }
@@ -284,7 +284,7 @@ fi
 
 log 'Done.'
 
-# https://github.com/kj4ezj/jellyfin-tv-guide
+# https://github.com/kj4ezj/dl-guide
 
 # MIT License
 #

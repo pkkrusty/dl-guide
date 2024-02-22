@@ -1,5 +1,5 @@
-# jellyfin-tv-guide CI
-This GitHub Actions workflow initializes and lints the `jellyfin-tv-guide` project.
+# dl-guide CI
+This GitHub Actions workflow initializes and lints the `dl-guide` project.
 
 ### Index
 1. [Triggers](#triggers)
@@ -22,7 +22,7 @@ This workflow performs the following steps on GitHub runners:
 1. Attach Documentation
     1. Checkout this repo with no submodules.
     1. Attach an annotation to the GitHub Actions build summary page containing CI documentation.
-1. Lint and Test jellyfin-tv-guide
+1. Lint and Test dl-guide
     1. Checkout this repo.
     1. Install system dependencies using `.github/workflows/deps.sh`.
     1. Initialize the project using `bpkg install --dev`.
@@ -32,7 +32,7 @@ This workflow performs the following steps on GitHub runners:
 There are currently no outputs of this GitHub Actions workflow, besides the exit status.
 
 ## See Also
-- [jellyfin-tv-guide Documentation](../../README.md)
+- [dl-guide Documentation](../../README.md)
 
 For assistance with the CI system, please open an issue in this repo.
 

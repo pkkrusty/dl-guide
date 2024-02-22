@@ -1,5 +1,5 @@
-# Jellyfin TV Guide
-Download TV guide metadata for Jellyfin using a cron job.
+# Download TV Guide
+Download TV guide metadata for [Jellyfin](https://jellyfin.org), or any other media software that accepts the [XMLTV format](https://wiki.xmltv.org/index.php/XMLTVFormat).
 
 > [!TIP]
 > **tl;dr**
@@ -31,7 +31,7 @@ sudo bpkg install -g kj4ezj/ee
 ```
 Then, install this tool using `bpkg`.
 ```bash
-sudo bpkg install kj4ezj/jellyfin-tv-guide
+sudo bpkg install kj4ezj/dl-guide
 ```
 This does a global install so `dl-guide` should now be in your system `PATH`.
 
@@ -161,8 +161,8 @@ This invokes `lint.sh` which contains the specific configuration for each permut
 
 ### CI
 This repo uses GitHub Actions workflows for CI.
-1. **jellyfin-tv-guide CI** - initialize and lint the `jellyfin-tv-guide` project.
-    - [Pipeline](https://github.com/kj4ezj/jellyfin-tv-guide/actions/workflows/ci.yml)
+1. **dl-guide CI** - initialize and lint the `dl-guide` project.
+    - [Pipeline](https://github.com/kj4ezj/dl-guide/actions/workflows/ci.yml)
     - [Documentation](./.github/workflows/README.md)
 
 The CI must pass before a pull request will be peer-reviewed.

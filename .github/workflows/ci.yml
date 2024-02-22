@@ -1,4 +1,4 @@
-name: jellyfin-tv-guide CI
+name: dl-guide CI
 
 on: [push, pull_request, workflow_dispatch]
 
@@ -17,7 +17,7 @@ jobs:
         run: cat .github/workflows/README.md >> $GITHUB_STEP_SUMMARY
 
   build:
-    name: Lint and Test jellyfin-tv-guide
+    name: Lint and Test dl-guide
     runs-on: ubuntu-latest
 
     steps:
