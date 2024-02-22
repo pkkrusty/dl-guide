@@ -109,6 +109,8 @@ sudo -E dl-guide -u 'someone@example.com' -o /var/lib/jellyfin/metadata -c jelly
 ```
 After that, follow [their instructions](https://jellyfin.org/docs/general/server/live-tv/setup-guide/#adding-guide-data) to point Jellyfin to the `tv-guide.xml` file in `/var/lib/jellyfin/metadata`.
 
+Jellyfin reads the `tv-guide.xml` file using a scheduled task that (at least for me) is already in there by default. You can check in the Administration Dashboard > Advanced > Scheduled Tasks > Live TV > Refresh Guide using the Jellyfin web portal.
+
 ## Development
 Contributors need these tools installed.
 - [act](https://github.com/nektos/act)
