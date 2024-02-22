@@ -144,6 +144,7 @@ bpkg run act
 Please make sure any pipeline changes do not break `act` compatibility.
 
 ## See Also
+- [echo-eval](https://github.com/kj4ezj/echo-eval)
 - Jellyfin
     - Documentation
         - [Adding Guide Data](https://jellyfin.org/docs/general/server/live-tv/setup-guide/#adding-guide-data)
