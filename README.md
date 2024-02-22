@@ -150,7 +150,7 @@ Contributors need these tools installed.
     - make
 - [git](https://git-scm.com)
 
-Please [sign your commits](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits).
+Pull requests are welcomed to add support for other media software. Please [sign your commits](https://docs.github.com/en/authentication/managing-commit-signature-verification/signing-commits).
 
 ### Lint
 This project uses [bashate](https://github.com/openstack/bashate) _and_ [shellcheck](https://github.com/koalaman/shellcheck) for linting.
