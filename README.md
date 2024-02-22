@@ -127,17 +127,17 @@ You will see some instructions explaining the general idea, and you can use [cro
 For example, this will run twice per day - once at 00:47, and once at 12:47.
 ```cron
 ZAP2IT_PASSWORD='hunter2'
-47 */12 * * * dl-guide -u 'someone@example.com' -c jellyfin -o /var/lib/jellyfin/metadata
+47 */12 * * * /usr/local/bin/dl-guide -u 'someone@example.com' -c jellyfin -o /var/lib/jellyfin/metadata
 ```
 This example captures the logs so you can see it worked, this time running once per day at 14:15 local time.
 ```cron
 ZAP2IT_PASSWORD='hunter2'
-15 14 * * * dl-guide -u 'someone@example.com' -c jellyfin -o /var/lib/jellyfin/metadata > /var/lib/jellyfin/metadata/dl-guide.log 2>&1
+15 14 * * * /usr/local/bin/dl-guide -u 'someone@example.com' -c jellyfin -o /var/lib/jellyfin/metadata > /var/lib/jellyfin/metadata/dl-guide.log 2>&1
 ```
 One more example running at 2:23, 3:23, and 4:23 AM local time.
 ```cron
 ZAP2IT_PASSWORD='hunter2'
-23 2-4/1 * * * dl-guide -u 'someone@example.com' -c jellyfin -o /var/lib/jellyfin/metadata > /var/lib/jellyfin/metadata/dl-guide.log 2>&1
+23 2-4/1 * * * /usr/local/bin/dl-guide -u 'someone@example.com' -c jellyfin -o /var/lib/jellyfin/metadata > /var/lib/jellyfin/metadata/dl-guide.log 2>&1
 ```
 The cron syntax is the same if you choose to use a Kubernetes cron job.
 
