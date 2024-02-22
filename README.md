@@ -15,6 +15,7 @@ Download TV guide metadata for Jellyfin using a cron job.
 1. [Usage](#usage)
     1. [Password](#password)
     1. [Jellyfin](#jellyfin)
+    1. [cron](#cron)
 1. [Development](#development)
     1. [Lint](#lint)
     1. [CI](#ci)
@@ -111,6 +112,35 @@ After that, follow [their instructions](https://jellyfin.org/docs/general/server
 
 Jellyfin reads the `tv-guide.xml` file using a scheduled task that (at least for me) is already in there by default. You can check in the Administration Dashboard > Advanced > Scheduled Tasks > Live TV > Refresh Guide using the Jellyfin web portal.
 
+### cron
+Finally, run this script at regular intervals using a [cron job](https://en.wikipedia.org/wiki/Cron).
+
+> [!TIP]
+> > Note the following command sets `dl-guide` to run as `root`. If you don't want to run `dl-guide` as `root` then you can omit `sudo`, but you won't be able to use the `-c` flag and your user account must have permission to run `docker` without `sudo`.
+
+Open your crontab to create the schedule.
+```bash
+sudo crontab -e
+```
+You will see some instructions explaining the general idea, and you can use [crontab.guru](https://crontab.guru) for help with the syntax. You probably want to run it somewhere between 1-4 times per day because sometimes `zap2it` throttles itself and refuses to respond. Please give a random minute offset to prevent everyone from querying the server all at once.
+
+For example, this will run twice per day - once at 00:47, and once at 12:47.
+```cron
+ZAP2IT_PASSWORD='hunter2'
+47 */12 * * * dl-guide -u 'someone@example.com' -c jellyfin -o /var/lib/jellyfin/metadata
+```
+This example captures the logs so you can see it worked, this time running once per day at 14:15 local time.
+```cron
+ZAP2IT_PASSWORD='hunter2'
+15 14 * * * dl-guide -u 'someone@example.com' -c jellyfin -o /var/lib/jellyfin/metadata > /var/lib/jellyfin/metadata/dl-guide.log 2>&1
+```
+One more example running at 2:23, 3:23, and 4:23 AM local time.
+```cron
+ZAP2IT_PASSWORD='hunter2'
+23 2-4/1 * * * dl-guide -u 'someone@example.com' -c jellyfin -o /var/lib/jellyfin/metadata > /var/lib/jellyfin/metadata/dl-guide.log 2>&1
+```
+The cron syntax is the same if you choose to use a Kubernetes cron job.
+
 ## Development
 Contributors need these tools installed.
 - [act](https://github.com/nektos/act)
@@ -144,6 +174,7 @@ bpkg run act
 Please make sure any pipeline changes do not break `act` compatibility.
 
 ## See Also
+- [crontab.guru](https://crontab.guru)
 - [echo-eval](https://github.com/kj4ezj/echo-eval)
 - Jellyfin
     - Documentation
