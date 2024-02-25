@@ -13,6 +13,9 @@ function check-deps {
         source ./deps/bin/ee
     elif ee >/dev/null 2>&1; then
         log 'Found "ee" (echo-eval) in the environment.'
+    elif /usr/local/bin/ee >/dev/null 2>&1; then
+        log 'Found "ee" (echo-eval) in "/usr/local/bin/".'
+        source /usr/local/bin/ee
     else
         fail 'FATAL: Missing dependency "ee" (echo-eval)!' 127
     fi
