@@ -175,7 +175,7 @@ $ dl-guide [OPTIONS]
         Specify the zap2it username.
 
     -v, --version
-        Print the script version and debug info.
+        Print the script version with debug info and exit.
 
 [VARIABLES] - configurable environment variables
     CHOWN_USER
