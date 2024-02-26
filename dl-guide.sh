@@ -288,7 +288,7 @@ check-password
 find-chown-user
 find-output-dir
 # update container
-ee "docker pull '$CONTAINER'"
+ee "docker pull '$CONTAINER'" || :
 # download guide data
 log-last-run-time "$OUTPUT_PATH"
 ZAP2XML_CMD="/zap2xml.pl -u '$ZAP2IT_USERNAME' -p '$ZAP2IT_PASSWORD' -U -o '/data/$OUTPUT_FILE'"
