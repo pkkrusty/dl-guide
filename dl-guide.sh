@@ -1,6 +1,6 @@
 #!/bin/bash
 set -eo pipefail
-export CONTAINER='docker.io/kj4ezj/zap2xml'
+export CONTAINER='ghcr.io/kj4ezj/zap2xml'
 export GIT_BRANCH=''  # populated by make install
 export GIT_ORIGIN=''  # populated by make install
 export GIT_VERSION='' # populated by make install
