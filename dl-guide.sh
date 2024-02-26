@@ -254,7 +254,7 @@ for (( i=1; i <= $#; i++)); do
     if [[ "$(echo "$ARG" | grep -icP '^(c|chown|(change)?owner(ship)?)$')" == '1' ]]; then
         i="$(( i+1 ))"
         CHOWN_USER="${!i}"
-    elif [[ "$ARG" == 'h' || "$ARG" == 'help' || "$ARG" == '?' ]]; then
+    elif [[ "$(echo "$ARG" | grep -icP '^(h|help|[?])$')" == '1' ]]; then
         log-help-and-exit
     elif [[ "$(echo "$ARG" | grep -icP '^(o|out(put)?(dir|file|folder|path)?)$')" == '1' ]]; then
         i="$(( i+1 ))"
@@ -264,7 +264,7 @@ for (( i=1; i <= $#; i++)); do
     elif [[ "$(echo "$ARG" | grep -icP '^(u|(zap2it)?user(name)?)$')" == '1' ]]; then
         i="$(( i+1 ))"
         ZAP2IT_USERNAME="${!i}"
-    elif [[ "$ARG" == 'v' || "$ARG" == 'version' ]]; then
+    elif [[ "$(echo "$ARG" | grep -icP '^(v|version)$')" == '1' ]]; then
         log-version-and-exit
     fi
 done
