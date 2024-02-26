@@ -28,7 +28,9 @@ This tool runs the [kj4ezj/zap2xml](https://github.com/kj4ezj/zap2xml) docker co
 > > If you are on macOS or BSD, you will need to [default to GNU tools](https://apple.stackexchange.com/a/69332) in your environment. You can check this by running `grep --version`, which will tell you whether it is BSD or GNU `grep`.
 
 ### bpkg
-This is the recommended installation method. Install [bpkg](https://github.com/bpkg/bpkg) if you have not already. Install the [echo-eval](https://github.com/kj4ezj/echo-eval) dependency.
+This is the recommended installation method. Install [bpkg](https://github.com/bpkg/bpkg) if you have not already.
+
+Install the [echo-eval](https://github.com/kj4ezj/echo-eval) dependency.
 ```bash
 sudo bpkg install -g kj4ezj/ee
 ```
