@@ -1,7 +1,7 @@
 {
   "name": "dl-guide",
   "version": "0.0.1",
-  "description": "Download TV guide metadata for Jellyfin using a cron job.",
+  "description": "Download TV guide metadata for Jellyfin, or any other media software that accepts the XMLTV format.",
   "homepage": "https://github.com/kj4ezj/dl-guide",
   "author": "Zach Butler <kj4ezj+dl-guide@pm.me>",
   "license": "MIT",
