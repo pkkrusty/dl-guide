@@ -40,6 +40,11 @@ sudo bpkg install kj4ezj/dl-guide
 ```
 This does a global install so `dl-guide` should now be in your system `PATH`.
 
+You can also have `bpkg` install a specific version.
+```bash
+sudo bpkg install kj4ezj/dl-guide@v0.1.0
+```
+
 ### Manual
 Install [bpkg](https://github.com/bpkg/bpkg) if you have not already. Clone this repo locally with `git` using your preferred method. Install project dependencies.
 ```bash
