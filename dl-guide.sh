@@ -162,6 +162,9 @@ $ dl-guide [OPTIONS]
     -h, --help, -?
         Print this help message and exit.
 
+    -l, --license
+        Print software license and exit.
+
     -o, --output, --output-dir, --output-file, --path <PATH>
         Specify the output directory or file. If a directory is given, the
         default file name (tv-guide.xml) will be used. If no output file,
@@ -224,6 +227,12 @@ function log-last-run-time {
     fi
 }
 
+# print the license and exit
+function log-license-and-exit {
+    awk '/^# MIT License/,0 { print }' "$0" | sed -E 's/# ?//'
+    exit 0
+}
+
 # print script version and other info
 function log-version-and-exit {
     echo "$GIT_REPO:$GIT_VERSION on $GIT_BRANCH"
@@ -256,6 +265,8 @@ for (( i=1; i <= $#; i++)); do
         CHOWN_USER="${!i}"
     elif [[ "$(echo "$ARG" | grep -icP '^(h|help|[?])$')" == '1' ]]; then
         log-help-and-exit
+    elif [[ "$(echo "$ARG" | grep -icP '^(license)$')" == '1' ]]; then
+        log-license-and-exit
     elif [[ "$(echo "$ARG" | grep -icP '^(o|out(put)?(dir|file|folder|path)?)$')" == '1' ]]; then
         i="$(( i+1 ))"
         OUTPUT="${!i}"

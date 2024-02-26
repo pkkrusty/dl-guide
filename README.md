@@ -61,6 +61,9 @@ $ dl-guide [OPTIONS]
     -h, --help, -?
         Print this help message and exit.
 
+    -l, --license
+        Print software license and exit.
+
     -o, --output, --output-dir, --output-file, --path <PATH>
         Specify the output directory or file. If a directory is given, the
         default file name (tv-guide.xml) will be used. If no output file,
