@@ -22,7 +22,7 @@ Download TV guide metadata for [Jellyfin](https://jellyfin.org), or any other me
 1. [See Also](#see-also)
 
 ## Installation
-This tool runs a docker container, so you will need the [docker engine](https://docs.docker.com/engine/install) installed on your system to use it.
+This tool runs the [kj4ezj/zap2xml](https://github.com/kj4ezj/zap2xml) docker container, so you will need the [docker engine](https://docs.docker.com/engine/install) installed on your system to use it.
 
 ### bpkg
 This is the recommended installation method. Install [bpkg](https://github.com/bpkg/bpkg) if you have not already. Install the [echo-eval](https://github.com/kj4ezj/echo-eval) dependency.
