@@ -1,5 +1,6 @@
 #!/bin/bash
 set -eo pipefail
+export CONTAINER='docker.io/kj4ezj/zap2xml'
 export GIT_BRANCH=''  # populated by make install
 export GIT_ORIGIN=''  # populated by make install
 export GIT_VERSION='' # populated by make install
@@ -289,7 +290,7 @@ find-output-dir
 # download guide data
 log-last-run-time "$OUTPUT_PATH"
 ZAP2XML_CMD="/zap2xml.pl -u '$ZAP2IT_USERNAME' -p '$ZAP2IT_PASSWORD' -U -o '/data/$OUTPUT_FILE'"
-ee "docker run -v '$OUTPUT_DIR:/data' kj4ezj/zap2xml /bin/sh -c \"$ZAP2XML_CMD\""
+ee "docker run -v '$OUTPUT_DIR:/data' '$CONTAINER' /bin/sh -c \"$ZAP2XML_CMD\""
 # fix permissions
 ee "chmod -x '$OUTPUT_PATH'"
 if [[ -n "$CHOWN_USER" ]]; then
