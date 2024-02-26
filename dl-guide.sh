@@ -291,7 +291,7 @@ find-output-dir
 ee "docker pull '$CONTAINER'" || :
 # download guide data
 log-last-run-time "$OUTPUT_PATH"
-ZAP2XML_CMD="/zap2xml.pl -u '$ZAP2IT_USERNAME' -p '$ZAP2IT_PASSWORD' -U -o '/data/$OUTPUT_FILE'"
+ZAP2XML_CMD="/zap2xml.pl -u '$ZAP2IT_USERNAME' -p '\$ZAP2IT_PASSWORD' -U -o '/data/$OUTPUT_FILE'"
 ee "docker run -v '$OUTPUT_DIR:/data' '$CONTAINER' /bin/sh -c \"$ZAP2XML_CMD\""
 # fix permissions
 ee "chmod -x '$OUTPUT_PATH'"
