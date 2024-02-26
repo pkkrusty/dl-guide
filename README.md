@@ -22,7 +22,7 @@ Download TV guide metadata for [Jellyfin](https://jellyfin.org), or any other me
 1. [See Also](#see-also)
 
 ## Installation
-This tool runs the [kj4ezj/zap2xml](https://github.com/kj4ezj/zap2xml) docker container, so you will need the [docker engine](https://docs.docker.com/engine/install) installed on your system to use it.
+This tool runs the [zap2xml](https://github.com/kj4ezj/zap2xml) docker container, so you will need the [docker engine](https://docs.docker.com/engine/install) installed on your system to use it.
 
 > [!NOTE]
 > > If you are on macOS or BSD, you will need to [default to GNU tools](https://apple.stackexchange.com/a/69332) in your environment. You can check this by running `grep --version`, which will tell you whether it is BSD or GNU `grep`.
