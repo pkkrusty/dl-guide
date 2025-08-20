@@ -20,7 +20,7 @@ jobs:
     name: Lint and Test dl-guide
     runs-on: ubuntu-latest
     permissions:
-       packages: read
+       packages: write
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
