@@ -1,6 +1,6 @@
 #!/bin/bash
 set -eo pipefail
-export CONTAINER='ghcr.io/kj4ezj/zap2xml'
+export CONTAINER='ghcr.io/pkkrusty/zap2xml'
 export GIT_BRANCH=''  # populated by make install
 export GIT_ORIGIN=''  # populated by make install
 export GIT_VERSION='' # populated by make install
@@ -43,7 +43,7 @@ function check-username {
 # fail with a useful error
 function fail {
     log "\e[1;31m$1\e[0m"
-    log 'Documentation: https://github.com/kj4ezj/dl-guide'
+    log 'Documentation: https://github.com/pkkrusty/dl-guide'
     log 'Exiting...'
     exit "${2:-1}"
 }
