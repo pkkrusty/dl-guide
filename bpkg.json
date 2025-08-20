@@ -2,7 +2,7 @@
   "name": "dl-guide",
   "version": "0.1.0",
   "description": "Download TV guide metadata for Jellyfin, or any other media software that accepts the XMLTV format.",
-  "homepage": "https://github.com/kj4ezj/dl-guide",
+  "homepage": "https://github.com/pkkrusty/dl-guide",
   "author": "Zach Butler <kj4ezj+dl-guide@pm.me>",
   "license": "MIT",
   "global": "true",
@@ -12,7 +12,7 @@
     "dl-guide.sh"
   ],
   "dependencies": {
-    "kj4ezj/ee": "main"
+    "pkkrusty/ee": "main"
   },
   "commands": {
     "act": "act --artifact-server-path .github/artifacts",
