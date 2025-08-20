@@ -19,7 +19,8 @@ jobs:
   build:
     name: Lint and Test dl-guide
     runs-on: ubuntu-latest
-
+    permissions:
+       packages: read
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v4
